@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Widget{% endblock %}
+
+{% block content %}
+<div class="content mt-3">
+	<div class="animated fadeIn">
+		<div class="row">
+			<div class="col-xs-6 col-sm-6">
+				<div class="card">
+				    	<div class="card-body" id="services">
+						    <select onchange="updateServices()" data-placeholder="Choose a service to add" class="standardSelect" tabindex="1" id="chooseService">
+							    <option value=""></option>
+							    {% for form in forms%}
+							    <option value="{{form.service}}">{{form.service}}</option>
+							    {% endfor %}
+							</select>
+						<div id="selectWdiget">
+						</div>
+						<form method="post" action="/addWidget/" name="addWidget" id="form">
+						</form>
+					    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+	function updateServices() {
+		document.getElementById("form").innerHTML = "";
+		var services = document.getElementById("selectWdiget")
+		var e = document.getElementById("chooseService");
+		var value = e.options[e.selectedIndex].value;
+		var select = document.createElement("select");
+		services.innerHTML = "";
+		select.setAttribute("onchange", "updateWidgets()");
+		select.setAttribute("data-placeholder", "Choose a Widget to add");
+		select.setAttribute("class", "standardSelect");
+		select.setAttribute("tabindex", "1");
+		select.setAttribute("id", "chooseWidget");
+		var option = document.createElement("option");
+		option.setAttribute("value", "");
+		select.appendChild(option)
+		{% for service in forms %}
+			if ("{{service.service}}" == value) {
+				{% for widget in service.widgets %}
+					option = document.createElement("option");
+					option.setAttribute("value", "{{widget.name}}")
+					option.innerHTML = "{{widget.name}}"
+					select.appendChild(option)
+				{% endfor %}
+				services.appendChild(select);
+			}
+		{% endfor %}
+		
+	}
+	function updateWidgets() {
+		var e = document.getElementById("chooseWidget");
+		var value = e.options[e.selectedIndex].value;
+		var form = document.getElementById("form")
+		var input = document.createElement("input");
+		form.innerHTML = "";
+		input.setAttribute("type", "hidden");
+		input.setAttribute("name", "widget_name");
+
+		var inputElem = document.createElement('input');
+		inputElem.type = 'hidden';
+		inputElem.name = 'csrfmiddlewaretoken';
+		inputElem.value = '{{ csrf_token }}';
+
+		var button = document.createElement('button');
+		button.setAttribute('type', 'submit');
+		button.setAttribute('id', 'Validate');
+		button.setAttribute('type', 'submit');
+		button.setAttribute('class', 'btn btn-primary btn-sm');
+
+		var i = document.createElement('i');
+		i.setAttribute('class', 'fa fa-dot-circle-o');
+		button.appendChild(i);
+		button.innerHTML = "ADD";
+
+		{% for service in forms %}
+			{% for widget in service.widgets %}
+				if ("{{widget.name}}" == value) {
+					input.setAttribute("value", "{{widget.name}}");
+					let b = form.innerHTML;
+					form.innerHTML = `{{widget.form}}` + b;
+					form.appendChild(button);
+					form.appendChild(inputElem);
+					form.appendChild(input)
+					return 0;
+				}
+			{% endfor %}
+		{% endfor %}
+	}
+
+        jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Oops, nothing found!",
+                width: "100%"
+            });
+        });
+    </script>
+{% endblock %}

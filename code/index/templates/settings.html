@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<div class="content mt-3">
+		<div class="animated fadeIn">
+			<div class="row">
+				<div class="col-xs-6 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<strong class="card-title">Setup Widget</strong>
+						    </div>
+						    <div class="card-body">
+							<select onchange="updateWidgets()" data-placeholder="Choose a widget to config" class="standardSelect" tabindex="1" id="chooseWidget">
+								<option value=""></option>
+								{% for form in forms%}
+									<!-- <option value="{{widget.api_route}}">{{widget.name}}</option> -->
+									<option value="{{ form.name }}{{ form.object.id }}">{{form.object}}</option>
+								{% endfor %}
+							</select>
+								<form method="post" name="addWidget" id="form">
+								</form>
+						    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block script %}
+<script>
+	function updateWidgets() {
+		var e = document.getElementById("chooseWidget");
+		var value = e.options[e.selectedIndex].value;
+		var form = document.getElementById("form")
+		var input = document.createElement("input");
+		form.innerHTML = "";
+		input.setAttribute("type", "hidden");
+		input.setAttribute("name", "widget_name");
+
+		var inputElem = document.createElement('input');
+		inputElem.type = 'hidden';
+		inputElem.name = 'csrfmiddlewaretoken';
+		inputElem.value = '{{ csrf_token }}';
+
+		var button = document.createElement('button');
+		button.setAttribute('type', 'submit');
+		button.setAttribute('id', 'Validate');
+		button.setAttribute('class', 'btn btn-primary btn-sm');
+
+		var del = document.createElement('button');
+		del.setAttribute('type', 'submit');
+		del.setAttribute('name', 'delete');
+		del.setAttribute('value', 'del');
+		del.setAttribute('class', 'btn btn-primary btn-sm');
+		del.innerHTML = "DELETE";
+
+		var i = document.createElement('i');
+		i.setAttribute('class', 'fa fa-dot-circle-o');
+		button.appendChild(i);
+		button.innerHTML = "UPDATE";
+
+		form.appendChild(button);
+		form.appendChild(del);
+		{% for form in forms %}
+			if ("{{ form.name }}{{ form.object.id }}" === value) {
+				var idUser = document.createElement('input');
+				idUser.type = 'hidden';
+				idUser.name = 'id';
+				idUser.value = '{{ form.object.id }}';
+				form.appendChild(idUser);
+
+				let backup = form.innerHTML;
+				let lo = ""
+				form.innerHTML = `{{form.form}}` + backup
+				input.setAttribute("value", "{{form.name}}");
+				form.appendChild(input);
+				form.appendChild(inputElem);
+				return 0;
+			}
+		{% endfor %}
+	}
+	
+		jQuery(document).ready(function() {
+		jQuery(".standardSelect").chosen({
+			disable_search_threshold: 10,
+			no_results_text: "Oops, nothing found!",
+			width: "100%"
+		    });
+		});
+</script>
+{% endblock %}

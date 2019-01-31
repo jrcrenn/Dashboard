@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Main Page{% endblock %}
+
+{% block content %}
+{% for widget in widgets %}
+	{% with widget.data as data %}
+	{% include widget.template %}
+	{% endwith %}
+	
+{% endfor %}	
+	<div class="card col-lg-2 col-md-6 no-padding no-shadow" id="add">
+		<div class="card-body bg-flat-color-2">
+			<div class="h4 mb-0 text-light">
+				ADD
+			</div>
+			<small class="text-uppercase font-weight-bold text-light">WIDGETS</small>
+			<div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 40%; height: 5px;"></div>
+		</div>
+	</div>
+	<div class="card col-lg-2 col-md-6 no-padding no-shadow" id="settings">
+			<div class="card-body bg-flat-color-3">
+			    <div class="h4 mb-0 text-light">
+				Setup
+			    </div>
+			    <small class="text-light text-uppercase font-weight-bold">Widgets</small>
+			    <div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 40%; height: 5px;"></div>
+			</div>
+	</div>
+
+{% endblock %}
+{% block script %}
+	{% block widget_script %}{% endblock %}
+	<script>
+		let addButton = document.getElementById('add');
+		addButton.style.cursor = 'pointer';
+		addButton.onclick = function() {
+			window.location.href = "/addWidget";
+		};
+		let clic = document.getElementById('settings');
+		clic.style.cursor = 'pointer';
+		clic.onclick = function() {
+			window.location.href = "/settings";
+		};
+</script>
+{% endblock %}

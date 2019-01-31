@@ -1,0 +1,12 @@
+{% extends 'widgets/base_widget.html' %}
+
+{% block widget %}
+<div class="stat-widget-one">
+<img src="http://openweathermap.org/img/w/{{ data.icon }}.png" alt="Image">
+    <div class="stat-content dib">
+<div class="stat-text">{{ data.city }}</div>
+<div class="stat-digit">{{ data.description }}</div>
+<div class="stat-digit">{{ data.temperature }} °C</div>
+   </div>
+</div>
+{% endblock %}

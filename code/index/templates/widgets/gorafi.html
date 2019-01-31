@@ -1,0 +1,47 @@
+{% extends 'widgets/base_widget.html' %}
+
+{% block widget %}
+
+<div class="w3-content w3-display-container">
+    {% for el in data.tab %}
+    <div class="w3-display-container mySlides{{data.id}}">
+      <a href="{{el.link}}">
+        <img src="{{el.pic}}" style="width:200%">
+      </a>
+      <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-black">
+        {{el.name}}
+        <p>{{el.title}}</p>
+      </div>
+    </div>
+    
+    {% endfor %}
+    <button class="w3-button w3-display-left w3-black" onclick="plusDivs(-1, {{data.id}})">&#10094;</button>
+    <button class="w3-button w3-display-right w3-black" onclick="plusDivs(1, {{data.id}})">&#10095;</button>
+    
+    </div>
+
+{% endblock %}
+
+{%  block script %}
+
+<script>
+var slideIndex = 1;
+showDivs(slideIndex, {{data.id}});
+
+function plusDivs(n, i) {
+  showDivs(slideIndex += n, i);
+}
+
+function showDivs(n, id) {
+  var i;
+  var x = document.getElementsByClassName("mySlides" + id);
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+</script>
+
+{% endblock %}
