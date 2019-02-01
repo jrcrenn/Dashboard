@@ -1,1 +1,0 @@
-web: gunicorn --chdir code dashboard.wsgi --log-file -

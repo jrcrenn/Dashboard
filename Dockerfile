@@ -1,19 +1,8 @@
-FROM python:3
-
-ENV PYTHONUNBUFFERED 1
-
-RUN mkdir /code
-
-WORKDIR /code
-
-ADD requirements.txt /code/
-
-RUN pip install -r requirements.txt
-
-ADD . /code/
-
-COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-
-RUN chmod +x /docker-entrypoint.sh
-
-ENTRYPOINT ["/docker-entrypoint.sh", "db"]
+FROM node:8
+RUN mkdir -p /app
+WORKDIR /app
+COPY package.json /app
+RUN npm install
+COPY . /app
+EXPOSE 8080
+CMD ["npm", "start"]
