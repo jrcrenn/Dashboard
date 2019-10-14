@@ -1,6 +1,6 @@
 # Dashboard #
 # Lancement #
-- Aller dans le dossier racine (DEV\_dashboard\_2018)
+- Aller dans le dossier racine (DEV\_dashboard\_2019)
 - Exécuter la commande : docker-compose build
 - Exécuter la commande : docker-compose up
 - Le site devrait se lancer sur un navigateur (localhost:8080)
