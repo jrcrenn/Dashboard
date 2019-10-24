@@ -8,8 +8,6 @@ services:
       - "8080:8080"
     links:
       - mongo
-    depends_on:
-      - mongo
   mongo:
     container_name: mongo
     image: mongo
@@ -17,9 +15,6 @@ services:
       - "27017:27017"
     volumes:
       - "mongodata:/data/db"
-    command: '--smallfiles --logpath=/dev/null'
-    environment:
-      MONGODB_DATABASE: "user"
 
 volumes:
   mongodata:
