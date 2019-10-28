@@ -33,7 +33,7 @@ function moviesActors() {
             document.getElementById("director").innerHTML = director;
             document.getElementById("actors").innerHTML = actor;
             document.getElementById("released").innerHTML = released;
-            document.getElementById("genre").innerHTML = genre; 
+            document.getElementById("genre").innerHTML = genre;
             document.getElementById("plot").innerHTML = plot;
         }
     })

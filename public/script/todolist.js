@@ -1,5 +1,7 @@
 $(document).ready(function () {
-    $('#ToDoList #container').animate({ opacity: 1 }, 600, "linear");
+    $('#ToDoList #container').animate({
+        opacity: 1
+    }, 600, "linear");
 
     $('#container ul').on('click', 'li', function () {
         $(this).toggleClass('done').blur();

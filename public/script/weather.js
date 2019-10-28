@@ -13,7 +13,7 @@ function weather() {
                     'temp_min': data.main.temp_min,
                     'temp_max': data.main.temp_max
                 },
-                'wind': { 
+                'wind': {
                     'speed': data.wind.speed
                 },
                 'weather': {

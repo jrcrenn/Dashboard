@@ -1,63 +1,42 @@
-//Setup
-const express = require('express');
-const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
-const PORT = 8080;
-const url = "mongodb://mongo:27017/";
-const path = require('./routes/routes');
-const app = express();
+var express = require('express');
+var app = express();
+var port = process.env.PORT || 8080;
+
+var morgan = require('morgan');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var passport = require('passport');
+var flash = require('connect-flash');
+var request = require('request');
+var nodeWidget = require('node-widgets');
+var fs = require('fs');
+
+var configDB = require('./config/database.js');
+mongoose.connect(configDB.url, {
+    useNewUrlParser: true
+});
+require('./config/passport.js')(passport);
+
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+app.use(session({
+    secret: 'anystringoftext',
+    saveUninitialized: true,
+    resave: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-app.use('/', path);
 
-//Db connect
-MongoClient.connect(url, function (err, db) {
-    if (err)
-        console.error(err);
-    else {
-        const dbo = db.db("user");
-        dbo.collection("user", function (err, collection) {
-            collection.find().toArray(function (err, items) {
-                if (err) throw err;
-                console.log(items);
-            });
-        });
+require('./routes/routes.js')(app, passport, request, nodeWidget, fs);
 
-        app.post('/register', function (req, res) {
-            var email = req.body.email;
-            var password = req.body.password;
-            var user = {
-                email: email,
-                pass: password
-            };
-            dbo.collection("user").insertOne(user, function (err, res) {
-                if (err) console.error(err);
-                console.log("User added");
-            });
-            res.redirect('/login');
-        });
-        app.post('/loginuser', function (req, res) {
-            var email = req.body.email;
-            var password = req.body.password;
-            var user = {
-                email: email,
-                pass: password
-            };
-            dbo.collection("user").find(user).count(function (err, count) {
-                if (err) throw err;
-                if (count >= 1)
-                    res.redirect('/dashboard')
-                else
-                    res.redirect('/login')
-            });
-        });
-    }
-});
-
-//Launch listening server on port 8080
-app.listen(PORT, function () {
-    console.log('App is running')
-})
+app.listen(port);
+console.log('Server running on port: ' + port);

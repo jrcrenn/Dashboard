@@ -9,12 +9,9 @@ services:
     links:
       - mongo
   mongo:
-    container_name: mongo
-    image: mongo
+    image: mongo:latest
     ports:
       - "27017:27017"
-    volumes:
-      - "mongodata:/data/db"
 
 volumes:
   mongodata:
