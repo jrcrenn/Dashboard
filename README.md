@@ -6,6 +6,8 @@ Tek3 Project Dashboard
 
 - Aller dans le dossier racine (DEV\_dashboard\_2019)
 
+- Exécuter la commande : npm install
+
 - Exécuter la commande : docker-compose up --build
 
 - Le site devrait se lancer sur un navigateur (localhost:8080)
