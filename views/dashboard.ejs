@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%; margin: 0;">
+
+<%- include('header'); -%>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <ul class="list-unstyled components">
+                <li>
+                    <h3> Dashboard </h3>
+                </li>
+            </ul>
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="#" id="weatherButton"><i class="fas fa-cloud-sun"></i> Weather</a>
+                </li>
+                <li>
+                    <a href="#" id="youtubeButton"><i class="fab fa-youtube"></i> Youtube</a>
+                </li>
+                <li>
+                    <a href="#" id="steamButton"><i class="fab fa-steam"></i> Steam</a>
+                </li>
+                <li>
+                    <a href="#" id="cinemaButton"><i class="fas fa-film"></i> Movie</a>
+                </li>
+                <li>
+                    <a href="#" id="adultButton"><i class="fas fa-ban"></i> Redtube</a>
+                </li>
+            </ul>
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="/logout"><span class="fas fa-sign-out-alt"></span> Logout</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="mainContent">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-info" style="display: none;">
+                    <i class="fas fa-align-left"></i>
+                </button>
+                <script>
+                    $(document).ready(function () {
+                        $('#dashboardToggle').on('click', function () {
+                            $('#sidebar').toggleClass('active');
+                            $('#sidebarCollapse').show();
+                        });
+                        $('#sidebarCollapse').on('click', function () {
+                            $('#sidebar').toggleClass('active')
+                            $('#sidebarCollapse').hide()
+                        })
+                    });
+                </script>
+                <div class="grid-stack">
+                    <script type="text/javascript">
+                        loadAllWidgets()
+                    </script>
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        var options = {
+                            cellHeight: 80,
+                            verticalMargin: 10
+                        };
+                        $('.grid-stack').gridstack(options);
+                    });
+                </script>
+            </div>
+        </div>
+
+        <div class="editClass" id="editClass">
+            <button id="closeEditWindow">x</button>
+            <form action="/editWidget" method="POST">
+                <h2><strong>Change your value</strong></h2>
+                </br>
+                <input type="hidden" name="toChange" id="toChange" value="">
+                <input type="text" name="newValue" placeholder="Change value" required>
+                </br>
+                <input type="submit">
+            </form>
+        </div>
+
+        <script>
+            function editWidget(item) {
+                $('#editClass').show()
+                $('#mainContent').fadeTo("slow", 0.4)
+                var toChangeInput = document.getElementById('toChange')
+                toChangeInput.value = item
+            }
+            $(document).ready(function () {
+                $('#closeEditWindow').on('click', function () {
+                    $('#editClass').hide()
+                    $('#mainContent').fadeTo("slow", 1)
+                })
+            })
+        </script>
+
+        <div class="hiddenClass">
+            <div class="weatherClass" id="weatherClass">
+                <h1><strong><i class="fas fa-cloud-sun"></i> Weather Widget</strong></h1>
+                <button id="removeWindowWeatherButton">X</button>
+                <form action="/saveWidget" method="POST">
+                    <label for="cityWeather">Name of your city -> </label>
+                    <input type="text" placeholder="City" name="widgetContent" id="cityWeather" required>
+                    <input type="hidden" name="widgetName" value="weather">
+                    <input type="hidden" name="widgetRole" value="getWeatherByCity">
+                    <input type="submit" id="submit" value="Create">
+                </form>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#weatherButton').on('click', function () {
+                            $('#weatherClass').show()
+                            $('#mainContent').fadeTo("slow", 0.4)
+                        })
+                        $('#removeWindowWeatherButton').on('click', function () {
+                            $('#weatherClass').hide()
+                            $('#mainContent').fadeTo("slow", 1)
+                        })
+                    })
+                </script>
+            </div>
+        </div>
+
+        <div class="hiddenClass">
+            <div class="youtubeClass" id="youtubeClass">
+                <h1><strong><i class="fab fa-youtube"></i> Youtube Widget</strong></h1>
+                <button id="removeWindowYoutubeButton">X</button>
+                <form action="/saveWidget" method="POST">
+                    <label for="">Load video by id -> </label>
+                    <input type="hidden" name="widgetName" value="youtube">
+                    <input type="hidden" name="widgetRole" value="loadVideo">
+                    <input type="text" placeholder="Ex : PeLBnv-PUck" name="widgetContent" id="videoId" required>
+                    <input type="submit" value="Create">
+                </form>
+                <form action="/saveWidget" method="POST">
+                    <label for="">Get video views by id -> </label>
+                    <input type="hidden" name="widgetName" value="youtube">
+                    <input type="hidden" name="widgetRole" value="getVideoViews">
+                    <input type="text" placeholder="Ex : PeLBnv-PUck" name="widgetContent" id="videoId" required>
+                    <input type="submit" value="Create">
+                </form>
+                <form action="/saveWidget" method="POST">
+                    <label for="">Get video likes & dislikes by id -> </label>
+                    <input type="hidden" name="widgetName" value="youtube">
+                    <input type="hidden" name="widgetRole" value="getVideoLikesDislikes">
+                    <input type="text" placeholder="Ex : PeLBnv-PUck" name="widgetContent" id="videoId" required>
+                    <input type="submit" value="Create">
+                </form>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#youtubeButton').on('click', function () {
+                            $('#youtubeClass').show()
+                            $('#mainContent').fadeTo("slow", 0.4)
+                        })
+                        $('#removeWindowYoutubeButton').on('click', function () {
+                            $('#youtubeClass').hide()
+                            $('#mainContent').fadeTo("slow", 1)
+                        })
+                    })
+                </script>
+            </div>
+        </div>
+
+        <div class="hiddenClass">
+            <div class="steamClass" id="steamClass">
+                <h1><strong><i class="fab fa-steam"></i> Steam Widget</strong></h1>
+                <button id="removeWindowSteamButton">X</button>
+                <form action="/saveWidget" method="POST">
+                    <label for="">Get player information by id -> </label>
+                    <input type="hidden" name="widgetName" value="steam">
+                    <input type="hidden" name="widgetRole" value="getPlayerInformation">
+                    <input type="text" placeholder="Ex : 76561198411894760" name="widgetContent" id="videoId" required>
+                    <input type="submit" value="Create">
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#steamButton').on('click', function () {
+                    $('#steamClass').show()
+                    $('#mainContent').fadeTo("slow", 0.4)
+                })
+                $('#removeWindowSteamButton').on('click', function () {
+                    $('#steamClass').hide()
+                    $('#mainContent').fadeTo("slow", 1)
+                })
+            })
+        </script>
+
+        <div class="hiddenClass">
+            <div class="cinemaClass" id="cinemaClass">
+                <h1><strong><i class="fas fa-film"></i> Cinema Widget</strong></h1>
+                <button id="removeWindowCinemaButton">X</button>
+                <form action="/saveWidget" method="POST">
+                    <label for="">Get movie information by name -> </label>
+                    <input type="hidden" name="widgetName" value="cinema">
+                    <input type="hidden" name="widgetRole" value="getMovieInformation">
+                    <input type="text" placeholder="Ex : Joker" name="widgetContent" id="videoId" required>
+                    <input type="submit" value="Create">
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#cinemaButton').on('click', function () {
+                    $('#cinemaClass').show()
+                    $('#mainContent').fadeTo("slow", 0.4)
+                })
+                $('#removeWindowCinemaButton').on('click', function () {
+                    $('#cinemaClass').hide()
+                    $('#mainContent').fadeTo("slow", 1)
+                })
+            })
+        </script>
+
+        <div class="hiddenClass">
+            <div class="adultClass" id="adultClass">
+                <h1><strong><i class="fas fa-dog"></i> Adult Content Widget</strong></h1>
+                <button id="removeWindowAdultButton">X</button>
+                <form action="/saveWidget" method="POST">
+                    <label for="">Get random video by name -> </label>
+                    <input type="hidden" name="widgetName" value="adultContent">
+                    <input type="hidden" name="widgetRole" value="getRandomMovie">
+                    <input type="text" placeholder="Ex : ***" name="widgetContent" id="videoId" required>
+                    <input type="submit" value="Create">
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#adultButton').on('click', function () {
+                    if (confirm('Are you 18 ?') == true) {
+                        $('#adultClass').show()
+                        $('#mainContent').fadeTo("slow", 0.4)
+                    }
+                })
+                $('#removeWindowAdultButton').on('click', function () {
+                    $('#adultClass').hide()
+                    $('#mainContent').fadeTo("slow", 1)
+                })
+            })
+        </script>
+    </div>
+    </div>
+</body>
+
+</html>

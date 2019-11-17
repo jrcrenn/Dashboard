@@ -1,70 +1,73 @@
 {
-  " client ": {
-    " host ": "127.0.0.1"
-  },
-  " server ": {
-    " current_time ": 1571946522,
-    " services ": [{
-        " name ": " weather ",
-        " widgets ": [{
-          " name ": " weather",
-          " description ": " Affichage de la temperature, temperature minimale, maximale, vitesse du vent, description du ciel pour une ville ",
-          " params ": [{
-            " name ": " city ",
-            " type ": " string "
-          }]
-        }]
-      },
-      {
-        " name ": " movies ",
-        " widgets ": [{
-            " name ": " list_movies",
-            " description ": " Affichage des films, séries ou jeux, et leur année de sortie selon un mot clé ",
-            " params ": [{
-              " name ": " movie ",
-              " type ": " string "
+    "client": {
+        "host": "127.0.0.1"
+    },
+    "server": {
+        "current_time": 1573738344,
+        "services": [{
+            "name": "weather",
+            "widgets": [{
+                "name": "weatherWidget",
+                "description": "Display temperature for a city with small description.",
+                "params": [{
+                    "name": "cityWeather",
+                    "type": "string"
+                }]
             }]
-          },
-          {
-            " name ": " movie_desc ",
-            " description ": " Affichage du réalisateur, des acteurs, la date de sortie, le genre et le synopsis pour un film ",
-            " params ": [{
-              " name ": " movie ",
-              " type ": " string "
+        }, {
+            "name": "youtube",
+            "widgets": [{
+                "name": "loadVideo",
+                "description": "Load video by Id.",
+                "params": [{
+                    "name": "videoId",
+                    "type": "string"
+                }]
+            }, {
+                "name": "getVideoViews",
+                "description": "Get video views by Id.",
+                "params": [{
+                    "name": "videoId",
+                    "type": "string"
+                }]
+            }, {
+                "name": "getVideoLikesDislikes",
+                "description": "Get video likes & dislikes by Id.",
+                "params": [{
+                    "name": "videoId",
+                    "type": "string"
+                }]
             }]
-          },
-          {
-            " name ": " movie_reviews ",
-            " description ": " Affichage des awards, du box office, du nombre de vote sur imdb et d'une liste des notes et de leur source pour un film ",
-            " params ": [{
-              " name ": " movie ",
-              " type ": " string "
+        }, {
+            "name": "steam",
+            "widgets": [{
+                "name": "getPlayerInformation",
+                "description": "Get player information by Id.",
+                "params": [{
+                    "name": "playerId",
+                    "type": "string"
+                }]
             }]
-          }
-        ]
-      },
-      {
-        " name ": " to do list",
-        " widgets ": [{
-          " name ": " todolist ",
-          " description ": " Ajout et suppression de tâche à faire et indication tâche effectué ",
-          " params ": [{
-            " name ": " items",
-            " type ": " string "
-          }]
+        }, {
+            "name": "cinema",
+            "widgets": [{
+                "name": "getMovieInformation",
+                "description": "Get movie information by name.",
+                "params": [{
+                    "name": "movieName",
+                    "type": "string"
+                }]
+            }]
+        }, {
+            "name": "adultContent",
+            "widgets": [{
+                "name": "getRandomMovie",
+                "description": "Get random movie by name.",
+                "params": [{
+                    "name": "movieName",
+                    "type": "string"
+                }]
+            }]
         }]
-      },
-      {
-        " name ": "currency converter  ",
-        " widgets ": [{
-          " name ": " currency converter ",
-          " description ": " Affichage de la conversion d'un devise D1 à une devise D2 pour un nombre",
-          " params ": [{
-            " name ": " qte",
-            " type ": " integer "
-          }]
-        }]
-      }
-    ]
-  }
+    }
 }

@@ -1,42 +1,40 @@
 var express = require('express');
+var mongoose = require('mongoose')
+var session = require('express-session')
 var app = express();
+var passport = require('passport')
+var cors = require('cors')
+var bodyParser = require('body-parser')
+
 var port = process.env.PORT || 8080;
 
-var morgan = require('morgan');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var flash = require('connect-flash');
-var request = require('request');
-var nodeWidget = require('node-widgets');
-var fs = require('fs');
-
-var configDB = require('./config/database.js');
+var configDB = require('./config/database');
 mongoose.connect(configDB.url, {
-    useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
-require('./config/passport.js')(passport);
 
-app.use(morgan('dev'));
-app.use(cookieParser());
+require('./config/passport')(passport)
+
+app.set('view engine', 'ejs');
+
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
 app.use(session({
-    secret: 'anystringoftext',
-    saveUninitialized: true,
-    resave: true
-}));
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}))
 
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
+app.use(passport.initialize())
+app.use(passport.session())
 
+app.use(cors())
+
+app.use('/', require('./routes/routes'));
 app.use(express.static('public'));
-
-require('./routes/routes.js')(app, passport, request, nodeWidget, fs);
 
 app.listen(port);
 console.log('Server running on port: ' + port);
