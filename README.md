@@ -1,6 +1,6 @@
 # Dashboard
 
-Tek3 Project Dashboard
+The purpose of this project is to implement a web application that works like Netvibes.
 
 # Lancement #
 
@@ -15,7 +15,7 @@ Tek3 Project Dashboard
 ## Inscription - Authentification ##
 
 - Inscription et Authentification au niveau local avec adresse mail et mot de passe
-- Authentification avec OAuth (Google et Facebook)
+- Authentification avec OAuth2 (Google et Facebook)
 
 ## Liste des services ##
 
@@ -25,9 +25,9 @@ Tek3 Project Dashboard
 
 - Permet de voir le nombre de vues.
 
-- Permet de voir les like et les dislike.
+- Permet de voir les likes et les dislike.
 
-### Météo###
+### Météo ###
 
 - Permet de voir la température d'un ville.
 
