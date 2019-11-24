@@ -2,42 +2,42 @@
 
 The purpose of this project is to implement a web application that works like Netvibes.
 
-# Lancement #
+# Launch #
 
-- Aller dans le dossier racine (DEV\_dashboard\_2019)
+- Go to the root folder (DEV \ _dashboard \ _2019)
 
-- Exécuter la commande : npm install
+- Run the command: npm install
 
-- Exécuter la commande : docker-compose up --build
+- Run the command: docker-compose up --build
 
-- Le site devrait se lancer sur un navigateur (localhost:8080)
+- The site should launch on a browser (localhost: 8080)
 
-## Inscription - Authentification ##
+## Registration - Authentication ##
 
-- Inscription et Authentification au niveau local avec adresse mail et mot de passe
-- Authentification avec OAuth2 (Google et Facebook)
+- Registration and authentication at the local level with email address and password
+- Authentication with OAuth2 (Google and Facebook)
 
-## Liste des services ##
+## List of services ##
 
 ### Youtube ###
 
-- Permet de regarder une vidéo.
+- Allows you to watch a video.
 
-- Permet de voir le nombre de vues.
+- View the number of views.
 
-- Permet de voir les likes et les dislike.
+- Lets see the likes and dislike.
 
-### Météo ###
+### Weather ###
 
-- Permet de voir la température d'un ville.
+- Allows you to see the temperature of a city.
 
-### Cinéma ###
+### Cinema ###
 
-- Permet de voir le classement d'un film, sa popularité, son affiche et sa date de création.
+- Lets see the rating of a movie, its popularity, its poster and its date of creation.
 
-### Contenu pour adultes ###
+### Adult content ###
 
-- Permet de regarder des vidéos de contenu pour adultes.
+- Lets watch adult content videos.
 
 ## Techno ##
 ### FrontEnd ###
