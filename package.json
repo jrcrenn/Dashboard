@@ -21,6 +21,7 @@
         "passport-facebook": "^3.0.0",
         "passport-google-oauth2": "^0.2.0",
         "passport-local": "^1.0.0",
-        "request": "^2.88.0"
+        "request": "^2.88.0",
+        "minimist": ">=1.2.2"
     }
 }
